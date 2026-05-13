@@ -61,11 +61,17 @@ const _0x401e3c = _0x1113;
 const express = require(_0x401e3c(0xca)),
   propertyRoutes = require(_0x401e3c(0xce)),
   userRoutes = require(_0x401e3c(0xd2)),
+  razorpayRoutes = require("./routes/razorpayRoutes"),
   cookieParser = require("cookie-parser"),
   app = express();
-// eslint-disable-next-line no-unused-expressions, no-sequences
-app[_0x401e3c(0xc9)](express[_0x401e3c(0xcc)]({ limit: "50mb" })),
-  app[_0x401e3c(0xc9)](cookieParser()),
-  app["use"](_0x401e3c(0xcf), propertyRoutes),
-  app[_0x401e3c(0xc9)]("/api/v1/rent/user", userRoutes),
-  (module["exports"] = app);
+  app.use(express.json({ limit: "50mb" }));
+  app.use(cookieParser());
+  app.use("/api/v1/rent/user", userRoutes);
+  app.use("/api/v1/rent/listing", propertyRoutes);
+  app.use("/api/v1/rent/razorpay", razorpayRoutes);
+  
+  app.all("*", (req, res, next) => {
+    next(new Error(`Can't find ${req.originalUrl} on this server!`));
+  });
+
+  (module.exports = app);

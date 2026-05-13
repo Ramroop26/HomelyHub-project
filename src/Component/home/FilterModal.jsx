@@ -233,7 +233,7 @@ function FilterModal({selectedFilters,onFilterChange,onClose}) {
   )
 }
 FilterModal.propTypes={
-    selectedFilters: PropTypes.func.isRequired,
+    selectedFilters: PropTypes.object.isRequired,
     onFilterChange: PropTypes.func.isRequired,
     onClose: PropTypes.func.isRequired
 };

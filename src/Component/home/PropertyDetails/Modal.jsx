@@ -29,7 +29,7 @@ useEffect(()=>{
     
 
 };
-Modal.prototype={
+Modal.propTypes={
     images:propTypes.array.isRequired,
     onClose:propTypes.func.isRequired,
 }

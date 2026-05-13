@@ -1,23 +1,14 @@
-import React from "react";
-import {
-  CardNumberElement,
-  CardExpiryElement,
-  CardCvcElement,
-  useStripe,
-  useElements,
-} from "@stripe/react-stripe-js";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { processPayment} from "../../Store/Payment/payment-action";
+import { processRazorpayPayment } from "../../Store/Payment/payment-action";
 import "../../CSS/Payment.css";
 
 const Payment = () => {
-  const stripe = useStripe();
-  const elements = useElements();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { bookingId, propertyId } = useParams();
-  const { isAuthenticated } = useSelector((state) => state.user);
+  const { user, isAuthenticated } = useSelector((state) => state.user);
 
   const {
     checkinDate,
@@ -29,76 +20,52 @@ const Payment = () => {
     nights,
   } = useSelector((state) => state.payment.paymentDetails);
 
-  const handleSubmit = processPayment({
-    totalAmount: totalPrice,
-    stripe,
-    elements,
-    checkinDate,
-    checkoutDate,
-    propertyName,
-    address,
-    maximumGuest,
-    nights,
-    bookingId,
-    propertyId,
-    dispatch,
-    navigate,
-  });
-
-  const elementOptions = {
-    style: {
-      base: {
-        fontSize: "16px",
-        color: "#111827",
-        "::placeholder": {
-          color: "#9ca3af",
-        },
-      },
-      invalid: {
-        color: "#ef4444",
-      },
-    },
+  const handleSubmit = (e) => {
+    processRazorpayPayment({
+      totalAmount: totalPrice,
+      checkinDate,
+      checkoutDate,
+      propertyName,
+      address,
+      maximumGuest,
+      nights,
+      bookingId,
+      propertyId,
+      dispatch,
+      navigate,
+      userId: user._id,
+      userName: user.name,
+      userEmail: user.email,
+      userPhone: user.phoneNumber,
+    })(e);
   };
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate("/login");
+    }
+  }, [isAuthenticated, navigate]);
 
   return (
     <div className="payment-wrapper">
       <div className="payment-form-container">
-        {isAuthenticated ? (
+        {isAuthenticated && (
           <form onSubmit={handleSubmit}>
             <h2>Complete Payment</h2>
-            <div className="form-group">
-              <label htmlFor="card_num_field">Card Number</label>
-              <div className="stripe-element-container">
-                <CardNumberElement
-                  id="card_num_field"
-                  options={elementOptions}
-                />
-              </div>
+            <div className="payment-details-summary">
+              <p><strong>Property:</strong> {propertyName}</p>
+              <p><strong>Total Amount:</strong> ₹{totalPrice}</p>
+              <p><strong>Nights:</strong> {nights}</p>
             </div>
-            <div className="form-group">
-              <label htmlFor="card_exp_field">Card Expiry</label>
-              <div className="stripe-element-container">
-                <CardExpiryElement
-                  id="card_exp_field"
-                  options={elementOptions}
-                />
-              </div>
+            
+            <div className="payment-method-notice">
+              <p>Secure payment via Razorpay</p>
             </div>
-            <div className="form-group">
-              <label htmlFor="card_cvc_field">Card CVC</label>
-              <div className="stripe-element-container">
-                <CardCvcElement
-                  id="card_cvc_field"
-                  options={elementOptions}
-                />
-              </div>
-            </div>
+
             <button type="submit" className="paymentbtn">
               Pay ₹{totalPrice}
             </button>
           </form>
-        ) : (
-          <div>{navigate("/login")}</div>
         )}
       </div>
     </div>
