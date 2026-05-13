@@ -1,0 +1,98 @@
+{
+  "type": "Compass Connections",
+  "version": {
+    "$numberInt": "1"
+  },
+  "connections": [
+    {
+      "id": "3122d41a-d793-41c4-8fae-fb68211169d5",
+      "lastUsed": {
+        "$date": {
+          "$numberLong": "1734467233499"
+        }
+      },
+      "favorite": {
+        "name": "customers"
+      },
+      "savedConnectionType": "favorite",
+      "connectionOptions": {
+        "connectionString": "mongodb://localhost:27017/?directConnection=true",
+        "oidc": {
+          "serializedState": "eyJvaWRjUGx1Z2luU3RhdGVWZXJzaW9uIjowLCJzdGF0ZSI6W119"
+        }
+      }
+    },
+    {
+      "id": "4fe99c7e-7d00-4f53-9136-82be2af82cfa",
+      "lastUsed": {
+        "$date": {
+          "$numberLong": "1734467247868"
+        }
+      },
+      "favorite": {
+        "name": "costumer-service-portal"
+      },
+      "savedConnectionType": "recent",
+      "connectionOptions": {
+        "connectionString": "mongodb://localhost:27017/",
+        "oidc": {
+          "serializedState": "eyJvaWRjUGx1Z2luU3RhdGVWZXJzaW9uIjowLCJzdGF0ZSI6W119"
+        }
+      }
+    },
+    {
+      "id": "bcda19d3-63af-43d5-a256-eeef956fae81",
+      "lastUsed": {
+        "$date": {
+          "$numberLong": "1738664051139"
+        }
+      },
+      "favorite": {
+        "name": "localhost:27017 (1)"
+      },
+      "savedConnectionType": "favorite",
+      "connectionOptions": {
+        "connectionString": "mongodb://localhost:27017/?directConnection=true",
+        "oidc": {
+          "serializedState": "eyJvaWRjUGx1Z2luU3RhdGVWZXJzaW9uIjowLCJzdGF0ZSI6W119"
+        }
+      }
+    },
+    {
+      "id": "dfde9fa1-177b-4b6d-b42c-cd849b85df35",
+      "lastUsed": {
+        "$date": {
+          "$numberLong": "1734467255137"
+        }
+      },
+      "favorite": {
+        "name": "employee-management-system"
+      },
+      "savedConnectionType": "recent",
+      "connectionOptions": {
+        "connectionString": "mongodb://localhost:27017/",
+        "oidc": {
+          "serializedState": "eyJvaWRjUGx1Z2luU3RhdGVWZXJzaW9uIjowLCJzdGF0ZSI6W119"
+        }
+      }
+    },
+    {
+      "id": "f5a79707-d683-41aa-bedd-294e083709f7",
+      "lastUsed": {
+        "$date": {
+          "$numberLong": "1740642933238"
+        }
+      },
+      "favorite": {
+        "name": "HomelyHub"
+      },
+      "savedConnectionType": "recent",
+      "connectionOptions": {
+        "connectionString": "mongodb://localhost:27017/?directConnection=true",
+        "oidc": {
+          "serializedState": "eyJvaWRjUGx1Z2luU3RhdGVWZXJzaW9uIjowLCJzdGF0ZSI6W119"
+        }
+      }
+    }
+  ]
+}
