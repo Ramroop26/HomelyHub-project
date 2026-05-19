@@ -70,8 +70,14 @@ const express = require(_0x401e3c(0xca)),
   app.use("/api/v1/rent/listing", propertyRoutes);
   app.use("/api/v1/rent/razorpay", razorpayRoutes);
   
+  const path = require('path');
+  app.use(express.static(path.join(__dirname, '../dist')));
+
   app.all("*", (req, res, next) => {
-    next(new Error(`Can't find ${req.originalUrl} on this server!`));
+    if (req.originalUrl.startsWith('/api')) {
+      return next(new Error(`Can't find ${req.originalUrl} on this server!`));
+    }
+    res.sendFile(path.resolve(__dirname, '../dist', 'index.html'));
   });
 
   (module.exports = app);
