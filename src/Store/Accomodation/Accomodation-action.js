@@ -4,7 +4,7 @@ import { accomodationActions } from "./Accomodation-slice";
 export const createAccomodation=(accomodationData)=>async(dispatch)=>{
     try{
         dispatch(accomodationActions.getAccomodationRequest());
-        const response =await axios.post("/api/v1/rent/user/newAccomodation",accomodationData)
+        const response =await axios.post("/api/v1/rent/user/newAccommodation",accomodationData)
         if(!response){
             throw Error("Could not get any Accomodation");
         }
@@ -17,7 +17,7 @@ export const createAccomodation=(accomodationData)=>async(dispatch)=>{
 export const getAllAccomodation=()=> async(dispatch)=>{
     try{
         dispatch(accomodationActions.getAccomodationRequest());
-        const {data}=await axios.get("/api/v1/rent/user/myAccomodation");
+        const {data}=await axios.get("/api/v1/rent/user/myAccommodation");
         const accom=data.data;
         dispatch(accomodationActions.getAccomodation(accom));
     }

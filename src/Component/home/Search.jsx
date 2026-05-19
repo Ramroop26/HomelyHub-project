@@ -1,12 +1,17 @@
 import React,{useState} from 'react'
-import { DatePicker, Space } from 'antd';
+import { DatePicker } from 'antd';
 import { useDispatch } from 'react-redux';
 import  {getAllProperties} from '../../Store/Property/property-action';
 import { propertyAction } from '../../Store/Property/property-slice';
 
 const Search = () => {
     const { RangePicker } = DatePicker;
-    const [keyword,setKeyword]=useState({});
+    const [keyword,setKeyword]=useState({
+        city: "",
+        guests: "",
+        dateIn: "",
+        dateOut: ""
+    });
     const [value,setValue]=useState([])
     const dispatch=useDispatch();
     function searchHandler(e){
@@ -16,8 +21,8 @@ const Search = () => {
         setKeyword({
             city:"",
             guests:"",
-            dataIn:"",
-            dataOut:"",
+            dateIn:"",
+            dateOut:"",
 
         });
         setValue([])

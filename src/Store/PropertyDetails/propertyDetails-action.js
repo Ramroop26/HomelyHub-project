@@ -12,6 +12,6 @@ export const getPropertyDetails=(id)=>async(dispatch)=>{
     }
 
     catch(error){
-        dispatch(propertyDetailsAction.getErrors(error.response.data.error))
+        dispatch(propertyDetailsAction.getErrors(error.response?.data?.message || error.response?.data?.error || error.message))
     }
 }

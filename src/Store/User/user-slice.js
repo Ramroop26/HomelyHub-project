@@ -39,7 +39,7 @@ const userSlice = createSlice({
         },
         getCurrentUser(state, action) {
             state.user = action.payload;
-            state.isAuthenticated = true;
+            state.isAuthenticated = !!action.payload;
             state.loading = false;
         },
         getLogoutRequest(state) {

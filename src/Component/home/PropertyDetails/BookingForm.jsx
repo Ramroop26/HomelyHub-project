@@ -57,10 +57,10 @@ const handleBookPlace = (e) => {
           propertyName,
           address,
           maximumGuest,
+          guests: Number(userData.guests),
         })
       );
       navigate(`/payment/${propertyId}`);
-    } else {
     }
   };
   return (

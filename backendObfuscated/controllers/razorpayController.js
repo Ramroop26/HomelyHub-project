@@ -4,8 +4,8 @@ const Booking = require("../Models/bookingModel");
 const Property = require("../Models/propertyModel");
 
 const razorpay = new Razorpay({
-  key_id: process.env.RAZORPAY_KEY_ID || process.env["razorpay.key_id"],
-  key_secret: process.env.RAZORPAY_KEY_SECRET || process.env["razorpay.key_secret"],
+  key_id: process.env.RAZORPAY_KEY_ID || process.env.key_id,
+  key_secret: process.env.RAZORPAY_KEY_SECRET || process.env.key_secret,
 });
 
 exports.createOrder = async (req, res) => {
@@ -50,7 +50,7 @@ exports.verifyPayment = async (req, res) => {
     bookingDetails,
   } = req.body;
 
-  const shasum = crypto.createHmac("sha256", process.env.RAZORPAY_KEY_SECRET || process.env["razorpay.key_secret"]);
+  const shasum = crypto.createHmac("sha256", process.env.RAZORPAY_KEY_SECRET || process.env.key_secret || process.env["razorpay.key_secret"]);
   shasum.update(`${razorpay_order_id}|${razorpay_payment_id}`);
   const digest = shasum.digest("hex");
 

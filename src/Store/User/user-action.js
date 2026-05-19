@@ -4,7 +4,6 @@ import { userAction } from "./user-slice";
 export const getSignup=(user)=>async(dispatch)=>{
     try{
         dispatch(userAction.getSignupRequest());
-        debugger;
         const {data}=await axios.post("/api/v1/rent/user/signup",user);
         dispatch(userAction.getSignupDetails(data.user));
     }

@@ -19,7 +19,7 @@ const ErrorBoundary = () => {
       <h1 style={{ fontSize: '4rem', margin: '0', color: '#ff385c' }}>Oops!</h1>
       <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>Something went wrong.</h2>
       <p style={{ color: '#717171', marginBottom: '2rem', maxWidth: '500px' }}>
-        {error.statusText || error.message || "An unexpected error occurred."}
+        {error?.statusText || error?.message || "An unexpected error occurred."}
       </p>
       <div style={{ display: 'flex', gap: '15px' }}>
         <button 

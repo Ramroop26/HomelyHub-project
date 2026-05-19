@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import ImagesUploading from "./ImagesUploading";
 import { useDispatch } from "react-redux";
 import {
@@ -59,9 +59,9 @@ const AccomodationForm = () => {
   });
   const [images, setImages] = useState([]);
 
-  const getImages = (img) => {
+  const getImages = useCallback((img) => {
     setImages(img);
-  };
+  }, []);
 
   const submitHandler = (event) => {
     event.preventDefault();

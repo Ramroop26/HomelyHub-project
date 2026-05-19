@@ -10,6 +10,7 @@ const bookingSlice = createSlice({
     reducers :{
         sendBookingRequest(state){
             state.loading =true;
+            state.bookingDetails = {};
         },
         setBookings:(state,action) =>{
             state.bookings =action.payload;
@@ -20,8 +21,9 @@ const bookingSlice = createSlice({
         },
         setBookingDetails :(state,action)=>{
             state.bookingDetails=action.payload.bookings;
+            state.loading = false;
         },
     },
 });
-export const {setBookings, addBooking ,setBookingDetails} = bookingSlice.actions;
+export const {setBookings, addBooking, setBookingDetails, sendBookingRequest} = bookingSlice.actions;
 export default bookingSlice;

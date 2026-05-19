@@ -17,6 +17,7 @@ const Payment = () => {
     propertyName,
     address,
     maximumGuest,
+    guests,
     nights,
   } = useSelector((state) => state.payment.paymentDetails);
 
@@ -28,6 +29,7 @@ const Payment = () => {
       propertyName,
       address,
       maximumGuest,
+      guests,
       nights,
       bookingId,
       propertyId,

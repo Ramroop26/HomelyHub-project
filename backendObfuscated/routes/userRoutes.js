@@ -20,5 +20,6 @@ router.route('/booking/:bookingId').get(authController.protect, bookingControlle
 router.route('/checkout-session').get(authController.protect, bookingController.getcheckOutSession);
 router.route('/booking/new').post(authController.protect, bookingController.createBookings);
 router.route('/myAccommodation').get(authController.protect, propertyController.getUsersProperties);
+router.route('/myAccomodation').get(authController.protect, propertyController.getUsersProperties);
 
 module.exports = router;

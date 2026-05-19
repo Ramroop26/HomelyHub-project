@@ -19,7 +19,6 @@ useEffect(()=>{
                 </button>
                 <div className="modal-image-container">
                     {images.map((image,index)=>(
-                        // eslint-disable-next-line jsx-a11y/img-redundant-alt
                         <img key={index} src={image.url} alt={`Image ${index+1}`}/>
                     ))}
                 </div>

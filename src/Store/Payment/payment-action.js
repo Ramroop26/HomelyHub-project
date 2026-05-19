@@ -1,5 +1,4 @@
 import axios from "axios";
-import { setPaymentDetails } from "./payment-slice";
 
 export const processRazorpayPayment = ({
     totalAmount,
@@ -8,10 +7,10 @@ export const processRazorpayPayment = ({
     propertyName,
     address,
     maximumGuest,
+    guests,
     nights,
     bookingId,
     propertyId,
-    dispatch,
     navigate,
     userId,
     userName,
@@ -33,10 +32,10 @@ export const processRazorpayPayment = ({
             }
 
             // 2. Create Order on Backend
-            const { data: { order } } = await axios.post("/api/v1/rent/razorpay/create-order", {
+            const { data: order } = await axios.post("/api/v1/rent/razorpay/create-order", {
                 amount: cleanAmount,
                 currency: "INR",
-                receipt: `receipt_${bookingId.substring(0, 10)}`
+                receipt: `receipt_${(bookingId || propertyId || "unknown_prop").substring(0, 10)}`
             });
 
             if (!order) throw new Error("Could not create Razorpay order");
@@ -59,17 +58,17 @@ export const processRazorpayPayment = ({
                             bookingDetails: {
                                 property: propertyId,
                                 user: userId,
-                                checkinDate,
-                                checkoutDate,
+                                fromDate: checkinDate,
+                                toDate: checkoutDate,
                                 price: cleanAmount,
-                                numberOfGuests: maximumGuest,
-                                nights
+                                guests: guests || maximumGuest,
+                                numberOfnights: nights
                             }
                         });
 
-                        if (verifyRes.data.status === "success") {
+                        if (verifyRes.data.status === "success" || verifyRes.data.msg === "success") {
                             alert("Payment Successful! Booking Confirmed.");
-                            navigate("/mybookings");
+                            navigate("/user/booking");
                         } else {
                             alert("Payment verification failed.");
                         }
@@ -104,8 +103,8 @@ export const processRazorpayPayment = ({
             rzp.open();
 
         } catch (error) {
-            console.error("Razorpay Error:", error);
-            alert("Could not initiate payment: " + (error.response?.data?.message || error.message));
+            console.error("Razorpay Error Details:", error.response?.data || error);
+            alert("Could not initiate payment: " + (error.response?.data?.error || error.response?.data?.message || error.message));
         }
     };
 };

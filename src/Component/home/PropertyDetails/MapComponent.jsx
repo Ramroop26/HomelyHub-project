@@ -15,12 +15,31 @@ L.Icon.Default.mergeOptions({
 });
 
 const MapComponent = ({ address }) => {
+  const formatState = (stateName) => {
+    if (!stateName) return "";
+    const s = stateName.toLowerCase().replace(/\s+/g, "");
+    const stateMapping = {
+      himachalpradesh: "Himachal Pradesh",
+      uttarpradesh: "Uttar Pradesh",
+      madhyapradesh: "Madhya Pradesh",
+      andhrapradesh: "Andhra Pradesh",
+      arunachalpradesh: "Arunachal Pradesh",
+      westbengal: "West Bengal",
+      tamilnadu: "Tamil Nadu",
+      jammukashmir: "Jammu and Kashmir",
+    };
+    return stateMapping[s] || stateName;
+  };
+
+  const cleanState = formatState(address.state);
+
   // Use area for more specific search
   const fullAddress = address.area 
-    ? `${address.area}, ${address.city}, ${address.state}, ${address.pincode}, India`
-    : `${address.city}, ${address.state}, ${address.pincode}, India`;
+    ? `${address.area}, ${address.city}, ${cleanState}, ${address.pincode}, India`
+    : `${address.city}, ${cleanState}, ${address.pincode}, India`;
     
-  const fallbackAddress = `${address.city}, ${address.state}, India`;
+  const fallbackAddress = `${address.city}, ${cleanState}, India`;
+  const cityFallbackAddress = `${address.city}, India`;
 
   const [coordinates, setCoordinates] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -54,15 +73,21 @@ const MapComponent = ({ address }) => {
     const loadMap = async () => {
       setLoading(true);
       // Try full address first
-      const success = await fetchCoordinates(fullAddress);
+      let success = await fetchCoordinates(fullAddress);
       
-      // If full address fails, try fallback (city only)
+      // If full address fails, try fallback (city and state)
       if (!success && isMounted) {
-        const fallbackSuccess = await fetchCoordinates(fallbackAddress);
-        if (!fallbackSuccess && isMounted) {
-          setError("Location not found on map");
-          setLoading(false);
-        }
+        success = await fetchCoordinates(fallbackAddress);
+      }
+
+      // If city and state fails, try city only
+      if (!success && isMounted) {
+        success = await fetchCoordinates(cityFallbackAddress);
+      }
+      
+      if (!success && isMounted) {
+        setError("Location not found on map");
+        setLoading(false);
       }
     };
 
@@ -71,7 +96,7 @@ const MapComponent = ({ address }) => {
     return () => {
       isMounted = false;
     };
-  }, [fullAddress, fallbackAddress]);
+  }, [fullAddress, fallbackAddress, cityFallbackAddress]);
 
   if (loading) return <div style={{ height: "320px", display: "flex", alignItems: "center", justifyContent: "center", background: "#f0f0f0" }}>Loading Map...</div>;
   if (error && !coordinates.length) return <div style={{ height: "320px", display: "flex", alignItems: "center", justifyContent: "center", background: "#f0f0f0", color: "red" }}>{error}</div>;
