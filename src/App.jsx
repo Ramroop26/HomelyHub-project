@@ -19,7 +19,7 @@ import UpdatePassword from './Store/User/UpdatePassword';
 import ForgotPassword from './Component/User/ForgotPassword';
 
 import ResetPassword from './Component/User/ResetPassword';
-import Payment from './Component/Payment/Payment';
+import Payment from './Component/Payment/payment';
 import MyBookings from './Component/Mybookings/MyBookings';
 import BookingDetails from './Component/Mybookings/BookingDetails';
 import AccomodationForm from './Component/Accomodation/AccomodationForm';
